@@ -1,18 +1,16 @@
 h1 {
-  color:black;
+  color: black;
   text-align: center;
   font-family: "Times New Roman", Times, serif;
-
 }
-
 
 p {
-  color:black;
+  color: black;
   text-align: center;
   font-family: "Times New Roman", Times, serif;
-
 }
 
-
-background: rgb(142,207,255);
-background: linear-gradient(90deg, rgba(142,207,255,1) 2%, rgba(121,198,110,1) 84%);
+body {
+  text-align: center;
+  background-image: linear-gradient(green, purple);
+}
