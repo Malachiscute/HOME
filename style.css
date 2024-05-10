@@ -14,6 +14,5 @@ p {
 }
 
 
-body {
-  background: linear-gradient(to bottom, #5c5afb 0%, #e94f83 100%);
-}
+background: rgb(142,207,255);
+background: linear-gradient(90deg, rgba(142,207,255,1) 2%, rgba(121,198,110,1) 84%);
