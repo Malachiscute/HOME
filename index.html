@@ -3,60 +3,70 @@
 <head>
     <title>Home Page</title>
     <link rel='stylesheet' href='style.css' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
 
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
 
-.topnav a:hover {
-  background-color: #58f1ea;
-  color: black;
-}
+        .topnav a:hover {
+            background-color: #58f1ea;
+            color: black;
+        }
 
-.topnav a.active {
-  background-color: ##12ff00;
-  color: white;
-}
-</style>
+        .topnav a.active {
+            background-color: ##12ff00;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
 <div class="topnav">
-  <a class="active" href="https://malachiscute.github.io/">Home</a>
-  <a href="https://malachiscute.github.io/Golden-Ret/">Golden Retriever</a>
-  <a href="https://malachiscute.github.io/Henry/">Henry</a>
-  <a href="https://malachiscute.github.io/Husky/">Husky</a>
-  <a href="#about">Sausage Dog</a>
-  <a href="#about">Scary Dog</a>
+    <a class="active" href="https://malachiscute.github.io/">Home</a>
+    <a href="https://malachiscute.github.io/Golden-Ret/">Golden Retriever</a>
+    <a href="https://malachiscute.github.io/Henry/">Henry</a>
+    <a href="https://malachiscute.github.io/Husky/">Husky</a>
+    <a href="#about">Sausage Dog</a>
+    <a href="#about">Scary Dog</a>
 </div>
 
 <div style="padding-left:16px">
 </div>
 
+<h1>Dogs</h1>
+
+<!-- Adding an ID to the image for targeting with JavaScript -->
+<img id="dogImage" src="https://www.thesprucepets.com/thmb/BqcHGB_H1lPxcSlKMobDbrOnBOY=/1500x0/filters:no_upscale():strip_icc()/GettyImages-175928868-120f47906f4849969fcdab28e2e4f494.jpg" alt="Dog Family" width="500" height="500">
+
+<!-- Adding JavaScript code -->
+<script>
+    // Get the image element by its ID
+    var dogImage = document.getElementById('dogImage');
+
+    // Add an event listener for the 'click' event
+    dogImage.addEventListener('click', function() {
+        // Creating an audio element for the woof sound
+        var audio = new Audio('path/to/woof-sound.mp3');
+        // Playing the woof sound
+        audio.play();
+    });
+</script>
+
 </body>
 </html>
-
-
-
-</head>
-<body>
-    <h1>Dogs</h1>
-
-    <img src="https://www.thesprucepets.com/thmb/BqcHGB_H1lPxcSlKMobDbrOnBOY=/1500x0/filters:no_upscale():strip_icc()/GettyImages-175928868-120f47906f4849969fcdab28e2e4f494.jpg" alt="Dog Family" width="500" height="500">
-</body>
