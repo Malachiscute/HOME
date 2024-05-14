@@ -30,3 +30,49 @@
 
     <img src="https://www.thesprucepets.com/thmb/BqcHGB_H1lPxcSlKMobDbrOnBOY=/1500x0/filters:no_upscale():strip_icc()/GettyImages-175928868-120f47906f4849969fcdab28e2e4f494.jpg" alt="Dog Family" width="900" height="500">
 </body>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Location</title>
+</head>
+<body>
+    <h1>Look Below</h1>
+    <p>Press The Button or No Access On Site</p>
+    <button onclick="getLocation()">Grant Access</button>
+
+    <p id="demo"></p>
+
+    <script>
+    const x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // Display the location on the page
+        x.innerHTML = `Latitude: ${latitude}<br>Longitude: ${longitude}`;
+
+        // You can provide a button or link to send the location via email or other means
+        const sendButton = document.createElement("button");
+        sendButton.textContent = "Send Location";
+        sendButton.onclick = function() {
+            // You can implement the logic to send the location to you here
+            const locationText = `Latitude: ${latitude}, Longitude: ${longitude}`;
+            // Example: sendLocationByEmail(locationText);
+            alert("Your location:\n" + locationText);
+        };
+        x.appendChild(sendButton);
+    }
+    </script>
+</body>
+</html>
