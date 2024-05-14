@@ -33,30 +33,56 @@
 
 
 
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <body>
     <h1>Look Below</h1>
-    <p>please</p>
-<button onclick="getLocation()">Click Me You Won't</button>
+    <p>Please click the button to share your location.</p>
+    <button onclick="getLocation()">Click Me You Won't</button>
 
-<p id="demo"></p>
+    <p id="demo"></p>
 
-<script>
-const x = document.getElementById("demo");
+    <script>
+    const x = document.getElementById("demo");
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
-}
-</script>
+    function sendPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
 
+        // Send the location data to your server
+        fetch('/save-location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ latitude, longitude })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to send location data.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            x.innerHTML = "Location sent successfully!";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            x.innerHTML = "Failed to send location data.";
+        });
+    }
+    </script>
 </body>
 </html>
-
